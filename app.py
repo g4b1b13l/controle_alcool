@@ -406,7 +406,7 @@ def upando_grafico_1(check):
 	df = pd.DataFrame(data=myresult, columns=colnames )
 	ultimo_registro  = df.tail(1)
 	total_liq = ultimo_registro['total_liq'].sum()
-	total_disponivel = total_liq + total_disponivel + 0.1
+	total_disponivel = total_liq + total_disponivel + 0.01
 	total_disponivel = str(total_disponivel)
 	return total_disponivel
 
