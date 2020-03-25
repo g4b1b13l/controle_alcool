@@ -348,6 +348,7 @@ def upando_grafico_1(check):
  
         yaxis={'title': 'Quantidade em litros'},)
 
+	return go.Figure(fig)
 
 
 @app.callback(Output('ultiminha', 'children'),
