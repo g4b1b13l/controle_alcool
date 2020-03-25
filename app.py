@@ -27,7 +27,7 @@ external_stylesheets = ['https://codepen.io/g4b1b13l/pen/VwwrYdL.css'] # Esse eh
 
 app = dash.Dash(__name__, external_stylesheets=[external_stylesheets,'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'],
         meta_tags=[
-        {"name": "viewport", "content": "width=device-width, initial-scale=1"}
+        {"name": "viewport", "content": "width=device-width, initial-scale=0"}
     ])
 server = app.server
 mydb=psy.connect (
