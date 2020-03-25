@@ -27,60 +27,10 @@ external_stylesheets = ['https://codepen.io/g4b1b13l/pen/VwwrYdL.css'] # Esse eh
 
 app = dash.Dash(__name__, external_stylesheets=[external_stylesheets,'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'],
         meta_tags=[
-        {"name": "viewport", "content": "width=device-width, initial-scale=0"}
+        {"name": "viewport", "content": "width=device-width, initial-scale=1"}
     ])
 server = app.server
-mydb=psy.connect (
-	host='ec2-54-235-100-99.compute-1.amazonaws.com',
-	user = 'mhxcrjdnckxtbr',
-	password='041d51b54231eb4e36b2a8d58f5ae16bc5cfaab2303d426676580f62e52ebcc1',
-	database='d9k1k422mp16r5')
-mycursor=mydb.cursor()
-total_disponivel= 0
-mycursor.execute('''select * from public."GIASA" ''')
-myresult= mycursor.fetchall()
-colnames = [desc[0] for desc in mycursor.description]
-df = pd.DataFrame(data=myresult, columns=colnames )
-ultimo_registro  = df.tail(1)
-total_liq = ultimo_registro['total_liq'].sum()
-total_disponivel = total_liq
-mycursor.execute('''select * from public."JAPUNGU" ''')
-myresult= mycursor.fetchall()
-colnames = [desc[0] for desc in mycursor.description]
-df = pd.DataFrame(data=myresult, columns=colnames )
-ultimo_registro  = df.tail(1)
-total_liq = ultimo_registro['total_liq'].sum()
-total_disponivel = total_liq + total_disponivel
-mycursor.execute('''select * from public."MIRIRI" ''')
-myresult= mycursor.fetchall()
-colnames = [desc[0] for desc in mycursor.description]
-df = pd.DataFrame(data=myresult, columns=colnames )
-ultimo_registro  = df.tail(1)
-total_liq = ultimo_registro['total_liq'].sum()
-total_disponivel = total_liq + total_disponivel
 
-mycursor.execute('''select * from public."M_ALEGRE" ''')
-myresult= mycursor.fetchall()
-colnames = [desc[0] for desc in mycursor.description]
-df = pd.DataFrame(data=myresult, columns=colnames )
-ultimo_registro  = df.tail(1)
-total_liq = ultimo_registro['total_liq'].sum()
-total_disponivel = total_liq + total_disponivel
-mycursor.execute('''select * from public."TABU" ''')
-myresult= mycursor.fetchall()
-colnames = [desc[0] for desc in mycursor.description]
-df = pd.DataFrame(data=myresult, columns=colnames )
-ultimo_registro  = df.tail(1)
-total_liq = ultimo_registro['total_liq'].sum() 
-total_disponivel = total_liq + total_disponivel
-mycursor.execute('''select * from public."D_PADUA" ''')
-myresult= mycursor.fetchall()
-colnames = [desc[0] for desc in mycursor.description]
-df = pd.DataFrame(data=myresult, columns=colnames )
-ultimo_registro  = df.tail(1)
-total_liq = ultimo_registro['total_liq'].sum()
-total_disponivel = total_liq + total_disponivel
-total_disponivel = str(total_disponivel)
 
 app.title = 'Controle_Alcool'
 
@@ -100,7 +50,7 @@ card_content_2 = [
     
     dbc.CardBody(
         [
-            html.H3(total_disponivel, className="card-title",style={'textAlign':'center'}),
+            html.H3(children = '', id= 'ultiminha', className="card-title",style={'textAlign':'center'}),
 
         ]
     ),
@@ -400,7 +350,66 @@ def upando_grafico_1(check):
 
 
 
+@app.callback(Output('ultiminha', 'children'),
+				[dash.dependencies.Input('check', 'value')])
 
+
+
+def upando_grafico_1(check):  
+
+	mydb=psy.connect (
+		host='ec2-54-235-100-99.compute-1.amazonaws.com',
+		user = 'mhxcrjdnckxtbr',
+		password='041d51b54231eb4e36b2a8d58f5ae16bc5cfaab2303d426676580f62e52ebcc1',
+		database='d9k1k422mp16r5')
+	mycursor=mydb.cursor()
+	total_disponivel= 0
+	mycursor.execute('''select * from public."GIASA" ''')
+	myresult= mycursor.fetchall()
+	colnames = [desc[0] for desc in mycursor.description]
+	df = pd.DataFrame(data=myresult, columns=colnames )
+	ultimo_registro  = df.tail(1)
+	total_liq = ultimo_registro['total_liq'].sum()
+	total_disponivel = total_liq
+	mycursor.execute('''select * from public."JAPUNGU" ''')
+	myresult= mycursor.fetchall()
+	colnames = [desc[0] for desc in mycursor.description]
+	df = pd.DataFrame(data=myresult, columns=colnames )
+	ultimo_registro  = df.tail(1)
+	total_liq = ultimo_registro['total_liq'].sum()
+	total_disponivel = total_liq + total_disponivel
+	mycursor.execute('''select * from public."MIRIRI" ''')
+	myresult= mycursor.fetchall()
+	colnames = [desc[0] for desc in mycursor.description]
+	df = pd.DataFrame(data=myresult, columns=colnames )
+	ultimo_registro  = df.tail(1)
+	total_liq = ultimo_registro['total_liq'].sum()
+	total_disponivel = total_liq + total_disponivel
+
+	mycursor.execute('''select * from public."M_ALEGRE" ''')
+	myresult= mycursor.fetchall()
+	colnames = [desc[0] for desc in mycursor.description]
+	df = pd.DataFrame(data=myresult, columns=colnames )
+	ultimo_registro  = df.tail(1)
+	total_liq = ultimo_registro['total_liq'].sum()
+	total_disponivel = total_liq + total_disponivel
+	mycursor.execute('''select * from public."TABU" ''')
+	myresult= mycursor.fetchall()
+	colnames = [desc[0] for desc in mycursor.description]
+	df = pd.DataFrame(data=myresult, columns=colnames )
+	ultimo_registro  = df.tail(1)
+	total_liq = ultimo_registro['total_liq'].sum() 
+	total_disponivel = total_liq + total_disponivel
+	mycursor.execute('''select * from public."D_PADUA" ''')
+	myresult= mycursor.fetchall()
+	colnames = [desc[0] for desc in mycursor.description]
+	df = pd.DataFrame(data=myresult, columns=colnames )
+	ultimo_registro  = df.tail(1)
+	total_liq = ultimo_registro['total_liq'].sum()
+	total_disponivel = total_liq + total_disponivel
+	print(total_disponivel,flush=True)
+	total_disponivel = str(total_disponivel)
+	return total_disponivel
 
     #fig = Figure(data=data, layout=layout)
 
