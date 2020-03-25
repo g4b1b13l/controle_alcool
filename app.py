@@ -129,7 +129,7 @@ app.layout = html.Div([  #Aqui a gente vai upar nosso layout
 
 		 				html.Div([
                        html.H3('Doação ao Governo do Estado da Paraíba do Volume de 31.460 litros'),
-                       html.H3(	'solicitadospela Secretaria do Estado da Paraíba para combate ao Covid-19'),
+                       html.H3(	'solicitados pela Secretaria do Estado da Paraíba para combate ao Covid-19'),
                        	]),
 
 		 			html.Div([html.Img(id='img_logo_cear'
